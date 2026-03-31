@@ -1,0 +1,37 @@
+{
+  "case_id": "eval-adversarial_wording-004",
+  "scenario_type": "adversarial_wording",
+  "documents": [
+    {
+      "document_type": "internal_policy",
+      "title": "eval-adversarial_wording-004 Source",
+      "version_label": "v1",
+      "effective_date": "2026-01-15",
+      "text": "Escalated complaints must be acknowledged promptly after intake review."
+    },
+    {
+      "document_type": "control_library",
+      "title": "eval-adversarial_wording-004 Target",
+      "version_label": "v2",
+      "effective_date": "2026-02-01",
+      "text": "Escalated complaints require immediate acknowledgment following case triage."
+    }
+  ],
+  "expected_statements": [
+    {
+      "statement_type": "control",
+      "normalized_text_contains": "acknowledged"
+    }
+  ],
+  "expected_conflict_type": "terminology_drift",
+  "expected_severity": "medium",
+  "expected_requires_review": true,
+  "expected_citation_targets": [
+    {
+      "title": "eval-adversarial_wording-004 Source"
+    },
+    {
+      "title": "eval-adversarial_wording-004 Target"
+    }
+  ]
+}

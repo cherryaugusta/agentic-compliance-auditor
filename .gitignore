@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+dist/
+coverage/
+frontend/node_modules/
+frontend/dist/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Runtime / build
+*.log
+tmp/
+media/
+staticfiles/
+
+# Docker volumes
+postgres_data/
+redis_data/
+
+# Eval artifacts
+evals/runs/*
+evals/reports/*.json
+!evals/runs/.gitkeep
+!evals/reports/.gitkeep

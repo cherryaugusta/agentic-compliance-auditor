@@ -1,0 +1,37 @@
+{
+  "case_id": "eval-stale_reference-002",
+  "scenario_type": "stale_reference",
+  "documents": [
+    {
+      "document_type": "procedure",
+      "title": "eval-stale_reference-002 Source",
+      "version_label": "v2",
+      "effective_date": "2025-10-01",
+      "text": "Use control library v2 for complaints routing."
+    },
+    {
+      "document_type": "control_library",
+      "title": "eval-stale_reference-002 Target",
+      "version_label": "v5",
+      "effective_date": "2026-02-01",
+      "text": "Complaints Control Standard v5 is the active control baseline."
+    }
+  ],
+  "expected_statements": [
+    {
+      "statement_type": "control",
+      "normalized_text_contains": "control library v2"
+    }
+  ],
+  "expected_conflict_type": "stale_reference",
+  "expected_severity": "medium",
+  "expected_requires_review": true,
+  "expected_citation_targets": [
+    {
+      "title": "eval-stale_reference-002 Source"
+    },
+    {
+      "title": "eval-stale_reference-002 Target"
+    }
+  ]
+}

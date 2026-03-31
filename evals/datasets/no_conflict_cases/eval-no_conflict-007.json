@@ -1,0 +1,37 @@
+{
+  "case_id": "eval-no_conflict-007",
+  "scenario_type": "no_conflict",
+  "documents": [
+    {
+      "document_type": "internal_policy",
+      "title": "eval-no_conflict-007 Source",
+      "version_label": "v1",
+      "effective_date": "2026-01-15",
+      "text": "Escalated complaints must be acknowledged within 5 business days."
+    },
+    {
+      "document_type": "control_library",
+      "title": "eval-no_conflict-007 Target",
+      "version_label": "v2",
+      "effective_date": "2026-02-01",
+      "text": "Escalated complaints must be acknowledged within 5 business days."
+    }
+  ],
+  "expected_statements": [
+    {
+      "statement_type": "control",
+      "normalized_text_contains": ""
+    }
+  ],
+  "expected_conflict_type": null,
+  "expected_severity": null,
+  "expected_requires_review": false,
+  "expected_citation_targets": [
+    {
+      "title": "eval-no_conflict-007 Source"
+    },
+    {
+      "title": "eval-no_conflict-007 Target"
+    }
+  ]
+}
