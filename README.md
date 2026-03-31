@@ -28,7 +28,7 @@ Agentic Compliance Auditor is implemented as a modular monolith with a Django ba
 
 ### Backend
 
-The backend is built with Django 5.1.6, Django REST Framework, drf-spectacular, and SimpleJWT. It is organized into domain apps that separate ingestion, lineage, statement extraction, comparison, findings, review operations, audit logging, evaluation, observability, and health concerns.
+The backend is built with Django 5.1.15, Django REST Framework, drf-spectacular, and SimpleJWT. It is organized into domain apps that separate ingestion, lineage, statement extraction, comparison, findings, review operations, audit logging, evaluation, observability, and health concerns.
 
 Core backend apps:
 
@@ -100,7 +100,7 @@ The intended local runtime is:
 ### Backend
 
 - Python 3.13
-- Django 5.1.6
+- Django 5.1.15
 - Django REST Framework
 - drf-spectacular
 - SimpleJWT
@@ -156,6 +156,10 @@ agentic-compliance-auditor/
 │   ├── runs/
 │   └── schemas/
 ├── frontend/
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── vitest.config.ts
+│   ├── tsconfig.json
 │   ├── src/
 │   └── tests/
 ├── infra/
@@ -205,7 +209,7 @@ docker compose ps
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
 python -m venv .venv
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 pip install -r requirements\dev.txt
 ```
@@ -282,7 +286,7 @@ docker compose up -d db redis
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 python manage.py migrate
 ```
 
@@ -290,7 +294,7 @@ python manage.py migrate
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 python ..\infra\scripts\seed_demo_data.py
 python ..\infra\scripts\generate_eval_cases.py
 python ..\infra\scripts\run_eval_suite.py
@@ -300,7 +304,7 @@ python ..\infra\scripts\run_eval_suite.py
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 python manage.py runserver
 ```
 
@@ -310,7 +314,7 @@ This is a long-running process. Stop it with `CTRL + C`.
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 celery -A config worker -l info -P solo
 ```
 
@@ -619,7 +623,7 @@ AI assistance can improve explanation quality, but deterministic rules remain au
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 pytest .\tests\unit
 pytest .\tests\integration
 pytest .\tests\api
@@ -630,14 +634,14 @@ pytest .\tests\workflows
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\frontend
-npx vitest run
+npx vitest run --config .\vitest.config.ts
 ```
 
 ### Eval regression
 
 ```powershell
 cd D:\AI-Projects\agentic-compliance-auditor\backend
-.\.venv\Scripts\activate
+& .\.venv\Scripts\Activate.ps1
 python ..\infra\scripts\generate_eval_cases.py
 python ..\infra\scripts\run_eval_suite.py
 ```
