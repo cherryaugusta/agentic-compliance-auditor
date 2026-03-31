@@ -1,0 +1,129 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: agentic_compliance
+          POSTGRES_USER: agentic_user
+          POSTGRES_PASSWORD: agentic_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U agentic_user -d agentic_compliance"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+      redis:
+        image: redis:7
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      DJANGO_SECRET_KEY: ci-secret-key
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1
+      POSTGRES_DB: agentic_compliance
+      POSTGRES_TEST_DB: agentic_compliance_test
+      POSTGRES_USER: agentic_user
+      POSTGRES_PASSWORD: agentic_password
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: 5432
+      REDIS_HOST: 127.0.0.1
+      REDIS_PORT: 6379
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
+      CSRF_TRUSTED_ORIGINS: http://localhost:5173
+      JWT_ACCESS_MINUTES: 60
+      JWT_REFRESH_DAYS: 7
+      AI_PROVIDER: mock
+      AI_MODEL_NAME: mock-contradiction-model
+      DEFAULT_REVIEW_QUEUE: policy-review
+      DEFAULT_SLA_HOURS: 48
+      PGVECTOR_DIMENSIONS: 8
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements/dev.txt
+
+      - name: Wait for PostgreSQL
+        run: |
+          python - <<'PY'
+          import socket
+          import time
+
+          host = "127.0.0.1"
+          port = 5432
+
+          for _ in range(60):
+              try:
+                  with socket.create_connection((host, port), timeout=1):
+                      print("PostgreSQL is ready.")
+                      break
+              except OSError:
+                  time.sleep(1)
+          else:
+              raise SystemExit("PostgreSQL did not become ready in time.")
+          PY
+
+      - name: Create test database
+        env:
+          PGPASSWORD: agentic_password
+        run: |
+          python - <<'PY'
+          import os
+          import subprocess
+
+          command = [
+              "psql",
+              "-h",
+              os.environ["POSTGRES_HOST"],
+              "-p",
+              os.environ["POSTGRES_PORT"],
+              "-U",
+              os.environ["POSTGRES_USER"],
+              "-d",
+              os.environ["POSTGRES_DB"],
+              "-c",
+              "CREATE DATABASE agentic_compliance_test;",
+          ]
+          result = subprocess.run(command, check=False)
+          if result.returncode not in (0, 1):
+              raise SystemExit(result.returncode)
+          PY
+
+      - name: Run Ruff
+        working-directory: backend
+        run: ruff check .
+
+      - name: Run Black check
+        working-directory: backend
+        run: black --check .
+
+      - name: Run backend tests
+        working-directory: backend
+        run: pytest
