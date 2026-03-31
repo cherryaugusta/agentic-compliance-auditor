@@ -1,3 +1,4 @@
+import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
@@ -97,5 +98,7 @@ test("finding detail renders citations and memo", async () => {
     screen.getByText("Escalated complaints must be acknowledged within 5 business days."),
   ).toBeInTheDocument();
   expect(screen.getByText(/Recommended Action:/)).toBeInTheDocument();
-  expect(screen.getAllByText(/Timeline mismatch: source=10 business days, target=5 business days\./)).toHaveLength(2);
+  expect(
+    screen.getAllByText(/Timeline mismatch: source=10 business days, target=5 business days\./),
+  ).toHaveLength(2);
 });
