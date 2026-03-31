@@ -147,6 +147,7 @@ agentic-compliance-auditor/
 │   ├── adr/
 │   ├── architecture/
 │   ├── demos/
+│   ├── diagrams/
 │   ├── domain/
 │   └── screenshots/
 ├── evals/
@@ -464,11 +465,11 @@ The eval pipeline uses synthetic datasets to test contradiction detection, drift
 
 ### Current seeded baseline
 
-* contradiction precision: `0.89`
-* contradiction recall: `0.86`
-* stale-reference accuracy: `0.93`
+* contradiction precision: `1.00`
+* contradiction recall: `1.00`
+* stale-reference accuracy: `1.00`
 * citation validity rate: `1.00`
-* review routing accuracy: `0.91`
+* review routing accuracy: `1.00`
 
 The latest machine-readable report is written to:
 
@@ -510,71 +511,75 @@ AI assistance can improve explanation quality, but deterministic rules remain au
 * The default AI provider is mock-backed, and deterministic rules remain the source of truth.
 * The seeded workflow is intended to make system behavior inspectable and reproducible in local development.
 
-## Screenshots gallery
+## Product gallery
 
-### Dashboard overview
+### UI screenshots
+
+#### Dashboard overview
 
 ![Dashboard overview](docs/screenshots/01-dashboard-overview.png)
 
-### Document library
+#### Document library
 
 ![Document library](docs/screenshots/02-document-library.png)
 
-### Document detail and extracted statements
+#### Document detail and extracted statements
 
 ![Document detail and extracted statements](docs/screenshots/03-document-detail-statements.png)
 
-### Version lineage
+#### Version lineage
 
 ![Version lineage](docs/screenshots/04-version-lineage-view.png)
 
-### Comparison builder
+#### Comparison builder
 
 ![Comparison builder](docs/screenshots/05-comparison-builder.png)
 
-### Findings dashboard
+#### Findings dashboard
 
 ![Findings dashboard](docs/screenshots/06-findings-dashboard.png)
 
-### Finding detail
+#### Finding detail
 
 ![Finding detail](docs/screenshots/07-finding-detail-side-by-side.png)
 
-### Review queue
+#### Review queue
 
 ![Review queue](docs/screenshots/08-review-queue.png)
 
-### Evaluation dashboard
+#### Evaluation dashboard
 
 ![Evaluation dashboard](docs/screenshots/09-eval-dashboard.png)
 
-### Admin prompt versions
+#### Admin prompt versions
 
 ![Admin prompt versions](docs/screenshots/10-admin-prompt-versions.png)
 
-### Architecture diagram
+#### Audit timeline
 
-![Architecture diagram](docs/screenshots/11-architecture-diagram.png)
+![Audit timeline](docs/screenshots/11-audit-timeline.png)
 
-### Workflow diagram
+#### Degraded mode evidence
 
-![Workflow diagram](docs/screenshots/12-workflow-diagram.png)
+![Degraded mode evidence](docs/screenshots/12-degraded-mode-banner.png)
 
-### Audit timeline
+#### Replay comparison run
 
-![Audit timeline](docs/screenshots/13-audit-timeline.png)
+![Replay comparison run](docs/screenshots/13-replay-comparison-run.png)
 
-### Degraded mode evidence
+#### Export finding packet
 
-![Degraded mode evidence](docs/screenshots/14-degraded-mode-banner.png)
+![Export finding packet](docs/screenshots/14-export-finding-packet.png)
 
-### Replay comparison run
+### Diagrams
 
-![Replay comparison run](docs/screenshots/15-replay-comparison-run.png)
+#### Architecture diagram
 
-### Export finding packet
+![Architecture diagram](docs/diagrams/01-architecture-diagram.png)
 
-![Export finding packet](docs/screenshots/16-export-finding-packet.png)
+#### Workflow diagram
+
+![Workflow diagram](docs/diagrams/02-workflow-diagram.png)
 
 ## Documentation map
 
