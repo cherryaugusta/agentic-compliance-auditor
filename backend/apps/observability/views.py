@@ -2,9 +2,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.comparisons.models import ComparisonRun
+from apps.documents.models import PolicyDocument
 from apps.evals.models import EvalRun
 from apps.findings.models import ConflictFlag
-from apps.observability.models import ModelExecutionLog
 from apps.reviews.models import ReviewTask
 
 
@@ -12,14 +12,11 @@ class MetricsOverviewView(APIView):
     def get(self, request):
         return Response(
             {
-                "documents": None,
+                "documents": PolicyDocument.objects.count(),
                 "comparison_runs": ComparisonRun.objects.count(),
                 "findings": ConflictFlag.objects.count(),
                 "review_tasks": ReviewTask.objects.count(),
                 "eval_runs": EvalRun.objects.count(),
-                "degraded_runs": ComparisonRun.objects.filter(
-                    status=ComparisonRun.Status.DEGRADED
-                ).count(),
             }
         )
 
@@ -60,6 +57,8 @@ class MetricsConflictsView(APIView):
                 "resolved": ConflictFlag.objects.filter(
                     status=ConflictFlag.Status.RESOLVED
                 ).count(),
-                "model_logs": ModelExecutionLog.objects.count(),
+                "degraded_runs": ComparisonRun.objects.filter(
+                    status=ComparisonRun.Status.DEGRADED
+                ).count(),
             }
         )

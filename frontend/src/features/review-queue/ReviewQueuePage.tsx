@@ -100,6 +100,22 @@ export default function ReviewQueuePage() {
                 onClick={() =>
                   actionMutation.mutate({
                     taskId: task.id,
+                    action: "override",
+                    payload: {
+                      comment: "Overridden from frontend.",
+                      override_reason_code: "manual_override",
+                    },
+                  })
+                }
+              >
+                Override
+              </button>
+              <button
+                type="button"
+                style={buttonStyle}
+                onClick={() =>
+                  actionMutation.mutate({
+                    taskId: task.id,
                     action: "dismiss",
                     payload: { comment: "Dismissed from frontend." },
                   })
