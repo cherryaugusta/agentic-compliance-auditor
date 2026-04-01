@@ -657,4 +657,6 @@ The repository includes separate workflows for:
 
 ## License
 
-MIT License. See `LICENSE`.
+This project is licensed under the MIT License.
+
+See the [LICENSE](./LICENSE) file for full details.
